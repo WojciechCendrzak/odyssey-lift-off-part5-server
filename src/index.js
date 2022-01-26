@@ -14,9 +14,16 @@ async function startApolloServer(typeDefs, resolvers) {
     },
   });
 
+  const cors = {
+    origin: "https://studio.apollographql.com",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  };
+
   const { url, port } = await server.listen({
     port: process.env.PORT || 4000,
-    cors: { origin: "https://studio.apollographql.com" },
+    cors,
   });
 
   console.log(`
