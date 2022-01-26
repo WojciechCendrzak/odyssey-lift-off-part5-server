@@ -16,7 +16,7 @@ async function startApolloServer(typeDefs, resolvers) {
 
   const { url, port } = await server.listen({
     port: process.env.PORT || 4000,
-    cors: { origin: "https://apollo-odyssey-lerner.herokuapp.com/" },
+    cors: { origin: "https://studio.apollographql.com" },
   });
 
   console.log(`
