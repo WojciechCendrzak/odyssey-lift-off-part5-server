@@ -2,11 +2,16 @@ const { ApolloServer } = require("apollo-server");
 const typeDefs = require("./schema");
 const resolvers = require("./resolvers");
 const TrackAPI = require("./datasources/track-api");
+// var cors = require("cors");
 
 async function startApolloServer(typeDefs, resolvers) {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
+    cors: {
+      origin: "*", // <- allow request from all domains
+      credentials: true,
+    },
     dataSources: () => {
       return {
         trackAPI: new TrackAPI(),
@@ -14,17 +19,14 @@ async function startApolloServer(typeDefs, resolvers) {
     },
   });
 
-  const cors = {
-    origin: "https://studio.apollographql.com",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
-  };
+  // const cors = {
+  //   origin: "https://studio.apollographql.com",
+  //   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  //   preflightContinue: false,
+  //   optionsSuccessStatus: 204,
+  // };
 
-  const { url, port } = await server.listen({
-    port: process.env.PORT || 4000,
-    cors,
-  });
+  const { url, port } = await server.listen({ port: process.env.PORT || 4000 });
 
   console.log(`
       🚀  Server is running
