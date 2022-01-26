@@ -9,8 +9,7 @@ async function startApolloServer(typeDefs, resolvers) {
     typeDefs,
     resolvers,
     cors: {
-      origin: "*", // <- allow request from all domains
-      credentials: true,
+      origin: "*",
     },
     dataSources: () => {
       return {
